@@ -50,7 +50,7 @@ set(LIBRARY_NAME Analysis)
 add_library(${LIBRARY_NAME} SHARED ${APP_SOURCES} ${APP_HEADERS})
 target_include_directories(${LIBRARY_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../include/" "${CMAKE_CURRENT_BINARY_DIR}/../include/" ${Boost_INCLUDE_DIRS}  ${HDF5_INCLUDE_DIR} )
 # Links the target exe (projBrunner) against the library (libprojB) and other required libraries
-target_link_libraries(${LIBRARY_NAME} PUBLIC ${Boost_LIBRARIES} jsoncpp_lib_static ceres ${HDF5_CXX_STATIC_LIBRARY})
+target_link_libraries(${LIBRARY_NAME} PUBLIC ${Boost_LIBRARIES} jsoncpp_lib_static ceres hdf5_cpp-static zlibstatic)
 set_property(TARGET ${LIBRARY_NAME} APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES)
 
 add_executable(TestHDF5Conversion TestHDF5Conversion.cpp)

@@ -11,7 +11,7 @@
 
 using namespace H5;
 
-namespace Util {
+namespace Analysis {
 
 	bool HDF5DataFile::IsValidHDF5(const std::string& file) {
 		bool isH5;

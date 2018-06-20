@@ -26,7 +26,7 @@ namespace H5 {
 
 }
 
-namespace Util {
+namespace Analysis {
 
 	class DllExport HDF5DataFile {
 	public:

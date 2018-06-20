@@ -76,13 +76,13 @@ namespace Analysis {
 
 	bool DataFile::isHDFFile() {
 
-		return Util::HDF5DataFile::IsValidHDF5(filename);
+		return Analysis::HDF5DataFile::IsValidHDF5(filename);
 	}
 
 	bool DataFile::ProcessHDFFile() {
 		
 		//read necessary information from headers
-		Util::HDF5DataFile file(filename);
+		Analysis::HDF5DataFile file(filename);
 		std::string configurationString = file.GetConfiguration();
 		
 		

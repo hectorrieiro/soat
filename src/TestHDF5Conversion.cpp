@@ -1,5 +1,5 @@
 
-#include "Util/HDF5.h"
+#include "Analysis/HDF5.h"
 #include <boost\filesystem.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 
@@ -14,7 +14,7 @@ int main() {
 	  for (vec::const_iterator it(v.begin()); it != v.end(); it++) {
 		if (boost::algorithm::ends_with(it->string(), "dat")) {
 			try {
-				Util::HDF5DataFile::Text2HDF5(it->string(), out + it->filename().generic_string());
+				Analysis::HDF5DataFile::Text2HDF5(it->string(), out + it->filename().generic_string());
 			}
 			catch (...) {
 
