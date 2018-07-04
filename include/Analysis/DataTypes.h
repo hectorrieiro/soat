@@ -20,13 +20,17 @@
 #include <json/value.h>
 
 namespace Analysis {
-	class SampleToDva;
+	class SampleToDva {
+	public:
+		virtual void convert(double& x, double& y) {};
+		virtual ~SampleToDva() = default;
+	};
 	typedef struct {
 		double timestamp;
 		double inTrialTS;
 		std::string message;
-	} EventType;
-	typedef std::vector<EventType> TaskEventsType;
+	} H5EventType;
+	typedef std::vector<H5EventType> TaskEventsType;
 	typedef std::vector<TaskEventsType> ExperimentEventsType;
 	typedef std::map<const std::string, std::vector<double> > TaskDataType;
 	typedef std::vector<TaskDataType> ExperimentResultsType;

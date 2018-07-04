@@ -28,13 +28,27 @@ namespace H5 {
 
 namespace Analysis {
 
-	class DllExport HDF5DataFile {
+	namespace IO {
+
+	typedef struct SimpleTableType_ {
+		char* title;
+		char* content;
+
+	} H5SimpleTableType;
+
+	typedef struct {
+		double timestamp;
+		char* text;
+	} H5EventType;
+
+	bool IsValidHDF5(const std::string& file);
+
+	class DllExport HDF5RawDataFile {
 	public:
 		static bool Text2HDF5(const std::string& origin, const std::string& dest);
 		static bool HDF52Text(const std::string& origin, const std::string& dest);
-		static bool IsValidHDF5(const std::string& file);
-
-		HDF5DataFile(const std::string& filename);
+		
+		HDF5RawDataFile(const std::string& filename);
 		std::string GetConfiguration();
 		std::string GetTasks();
 		std::string GetRecordingInfo();
@@ -48,30 +62,24 @@ namespace Analysis {
 		void GetLeftPupilSize(std::vector<double>&);
 		bool HasRightPupilSize();
 		void GetRightPupilSize(std::vector<double>&);
+		virtual ~HDF5RawDataFile();
 		
-		virtual ~HDF5DataFile();
 
 	private:
-
 		std::unique_ptr<H5::H5File> file;
 		std::unique_ptr<H5::Group> dataGroup;
-
 		std::string GetHeaderContent(const std::string& headerName);
 		void GetDataWithName(const std::string& name, std::vector<double>& out);
 		bool HasDataWithName(const std::string&);
 
-
-		typedef struct SimpleTableType_{
-			char* title;
-			char* content;
-			
-		} SimpleTableType;
-
-		typedef struct {
-			double timestamp;
-			char* text;
-		} EventType;
 	};
+
+	class DllExport HDF5SegmentedDataFile {
+		static bool SegmentRawFile(const HDF5RawDataFile&, const std::string&, bool doAnalyses = false);
+	}; //HDF5SegmentedDataFile
+	
+	
+	}//namespace IO
 
 }
 #endif

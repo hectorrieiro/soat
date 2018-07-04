@@ -42,7 +42,7 @@ set(APP_HEADERS
 set(APP_SOURCES
   Numerics.cpp Algorithms.cpp FixationAnalysis.cpp MicrosaccadeAnalysis.cpp  
   FixationEstabilityAnalysis.cpp PursuitAnalysis.cpp GuidedSaccadeAnalysis.cpp PupillometryAnalysis.cpp SmoothConvergenceAnalysis.cpp OKNAnalysis.cpp DataFile.cpp HDF5.cpp
-)
+  AnalysisExport.cpp)
 
 find_package(HDF5 NAMES hdf5 COMPONENTS CXX static)
 
@@ -57,6 +57,11 @@ add_executable(TestHDF5Conversion TestHDF5Conversion.cpp)
 target_link_libraries(TestHDF5Conversion Analysis  ${Boost_LIBRARIES})
 target_include_directories(TestHDF5Conversion PUBLIC ${Boost_INCLUDE_DIRS})
 set_property(TARGET TestHDF5Conversion PROPERTY FOLDER "Tests")
+
+add_executable(TestSegmentation TestSegmentation.cpp)
+target_link_libraries(TestSegmentation Analysis  ${Boost_LIBRARIES})
+target_include_directories(TestSegmentation PUBLIC ${Boost_INCLUDE_DIRS})
+set_property(TARGET TestSegmentation PROPERTY FOLDER "Tests")
 
 if (MSVC)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Qpar /Qpar-report:1 /Qvec-report:1")
