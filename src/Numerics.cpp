@@ -7,6 +7,17 @@
 #include <fstream>
 
 namespace Analysis {
+
+	void SubtractMean(double* x, const long sz) {
+		double m = nanmean(x, sz);
+#pragma loop(hint_parallel(0))
+#pragma loop(ivdep) 
+		for (long k = 0; k < sz; k++) {
+			x[k] -= m;
+		}
+	}
+
+
 	void firstDerivative(const double* __restrict x, double* __restrict xprime, const long size, double sampleRate) {
 		const double coeff1 = 126.0/1188.0;
 		const double coeff2 = 193.0 / 1188.0;

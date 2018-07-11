@@ -970,8 +970,68 @@ namespace Analysis {
 		}
 
 		bool SegmentedDataFile::DoAnalyses() {
+			using H5::Group;
+			using H5::DataType; 
+			using H5::DataSpace;
+			using H5::DataSet;
+
+			Group tasksGroup;
+			try {
+				tasksGroup = hdfFile->openGroup(SegmentedFileNames.Tasks);
+			}
+			catch (H5::FileIException& e) {
+				return false;
+			}
+
+			hsize_t numObjs = tasksGroup.getNumObjs();
+			for (std::size_t k = 0; k < numObjs; k++) {
+				if (tasksGroup.getObjTypeByIdx(k) != H5G_GROUP) continue;
+				ProcessGroup(k, tasksGroup);
+			}
+			
+
 			return true;
 		}
+
+		void SegmentedDataFile::ProcessGroup(hsize_t idx, H5::Group& rootGroup) {
+			using H5::Group;
+			std::string name = rootGroup.getObjnameByIdx(idx);
+			Group grp = rootGroup.openGroup(name);
+			if (name.compare(SegmentedFileNames.TaskNames.Fixation) == 0) {
+				ProcessFixations(grp);
+			}
+			else if (name.compare(SegmentedFileNames.TaskNames.HorizontalSaccades) == 0) {
+				ProcessHorizontalSaccades(grp);
+			}
+			else if (name.compare(SegmentedFileNames.TaskNames.OKN) == 0) {
+				ProcessOKN(grp);
+			}
+			else if (name.compare(SegmentedFileNames.TaskNames.Pupillometry) == 0) {
+				ProcessPupillometry(grp);
+			}
+			else if (name.compare(SegmentedFileNames.TaskNames.SmoothConvergence) == 0) {
+				ProcessSmoothConvergence(grp);
+			}
+			else if (name.compare(SegmentedFileNames.TaskNames.SmoothPursuit) == 0) {
+				ProcessSmoothPursuit(grp);
+			}
+			else if (name.compare(SegmentedFileNames.TaskNames.VerticalSaccades) == 0) {
+				ProcessVerticalSaccades(grp);
+			}
+		}
+
+		void SegmentedDataFile::ProcessFixations(H5::Group& grp) {
+
+
+
+		}
+
+		void SegmentedDataFile::ProcessHorizontalSaccades(H5::Group& grp){}
+		void SegmentedDataFile::ProcessOKN(H5::Group& grp){}
+		void SegmentedDataFile::ProcessPupillometry(H5::Group& grp){}
+		void SegmentedDataFile::ProcessSmoothConvergence(H5::Group& grp){}
+		void SegmentedDataFile::ProcessSmoothPursuit(H5::Group& grp){}
+		void SegmentedDataFile::ProcessVerticalSaccades(H5::Group& grp){}
 
 		bool SegmentedDataFile::IsSegmentedHDFFile(const std::string& filename) {
 			if (!IsValidHDF5(filename)) return false;

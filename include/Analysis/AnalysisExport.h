@@ -20,6 +20,7 @@
 extern "C" {
 
 	DllExport bool ImportAndProcessDatafile(const char* inFile, const char* outFile);
+	DllExport bool AnalyzeSegmentedFile(const char* inFile);
 
 }
 

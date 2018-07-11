@@ -129,6 +129,7 @@ namespace Analysis {
 			virtual ~SegmentedDataFile();
 			static bool IsSegmentedHDFFile(const std::string&);
 		private:
+			void SegmentedDataFile::ProcessGroup(hsize_t idx, H5::Group& rootGroup);
 			static const std::vector<std::string >  EyePositionsTableLabels;
 			std::unique_ptr<H5::H5File> hdfFile;
 			SegmentedDataFile();

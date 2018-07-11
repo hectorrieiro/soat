@@ -38,7 +38,7 @@ namespace Analysis {
 		if (isnan(b)) return true;
 		return a < b;
 	}
-
+	DllExport void SubtractMean(double* x, const long sz);
 	DllExport inline bool NanCompareMax(double a, double b) {
 		if (isnan(a) && isnan(b)) return false;
 		if (isnan(a)) return true;

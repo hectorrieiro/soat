@@ -24,6 +24,8 @@ namespace Analysis {
 		}
 
 	}
+
+	
 	bool FixationAnalysis::ProcessAll() {
 
 		const unsigned int paddingSize = 250;
